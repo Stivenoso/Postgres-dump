@@ -8,5 +8,8 @@ bot.conf file with bot and channel IDs
 cron copy - simple copy of my local cron file
 
 simple_dump.sh - bash script to dump local postgreSQL DBs
-disregard my attempts to log errors, it's not ready yet and probably should be removed
 
+
+harder_dump.sh - update to previous script, requires .conf file in the same directory
+
+In .conf you need to fill in DB to be dumped and other stuff
