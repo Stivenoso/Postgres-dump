@@ -5,13 +5,7 @@ set -e
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-
-if [ -f "${HOME}/.harder_dump.conf" ]; then
-    source ${HOME}/.harder_dump.conf
-else
-    source $DIR/.conf
-fi
+source $DIR/.conf
 
 
 NOW=$(date +"%Y-%m-%d-at-%H-%M-%S")
