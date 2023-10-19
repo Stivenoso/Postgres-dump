@@ -15,15 +15,16 @@ for entry in "${DB_ENTRIES[@]}"; do
     HOST="${DB_PARAMS[1]}"
     PORT="${DB_PARAMS[2]}"
     USER="${DB_PARAMS[3]}"
-    CLUSTER="${DB_PARAMS[4]}"
+    PASSWORD="${DB_PARAMS[4]}"
+    CLUSTER="${DB_PARAMS[5]}"
 
     FILENAME="$NOW"_"$NAME"
 
     echo " * Backing up $NAME on $HOST:$PORT..."
 
-    if pg_dump -Fc -h "$HOST" -p "$PORT" -U "$USER" "$NAME" > /tmp/"$FILENAME".dump; then
+    if PGPASSWORD="$PASSWORD" pg_dump -Fc -h "$HOST" -p "$PORT" -U "$USER" "$NAME" > /tmp/"$FILENAME".dump; then
         echo "      ...database $NAME has been backed up successfully"
-        curl -s -X POST https://api.telegram.org/bot6331139013:AAEfqXLK3w1HP9p1wp5mVEWW8EhpXHNU4AQ/sendMessage -d chat_id=-1001923398584 -d text="Loaded DUMP for $NAME successfully ✅"
+        curl -s -X POST https://api.telegram.org/bot6331139013:AAEfqXLK3w1HP9p1wp5mVEWW8EhpXHNU4AQ/sendMessage -d chat_id=-1001923398584 -d text="Loaded DUMP for $NAME successfully✅"
         mcli cp --recursive /tmp/"$FILENAME".dump "$S3_PATH/"
         rm /tmp/"$FILENAME".dump
     else
